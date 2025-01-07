@@ -1,19 +1,28 @@
 package com.example.movieverse.domain.user_cases
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.movieverse.common.ViewState
+import com.example.movieverse.data.model.toMoviesModel
 import com.example.movieverse.domain.model.MoviesModel
 import com.example.movieverse.domain.repository.MoviesRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetMoviesListUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
 
+    operator fun invoke(page: Int = 0): Flow<ViewState<MoviesModel>> = flow {
 
-    operator fun invoke(pag:Int = 0, getMoviesList: (LiveData<ViewState<MoviesModel>>) -> Unit ){
+        try {
+            emit(ViewState.Loading())
 
-//        getMoviesList(ViewState.Loading(MutableLiveData()))
+            val response = moviesRepository.getPopularMovies(page)
+            val responseModel = if (response.results.isEmpty()) emptyList<MoviesModel.Result>() else response.results.map { it.toMoviesModel() }
+            val finalResponseModel  = MoviesModel(page = response.page, results = responseModel)
 
+            emit(ViewState.Success(finalResponseModel))
+        }catch (e: Exception){
+            emit(ViewState.Error(message = e.message))
+        }
 
     }
 
