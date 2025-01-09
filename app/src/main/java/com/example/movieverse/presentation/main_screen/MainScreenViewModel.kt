@@ -18,7 +18,7 @@ class MainScreenViewModel @Inject constructor(private val getMoviesListUseCase: 
     private val _movies = MutableStateFlow(MoviesViewState())
     val movies: MutableStateFlow<MoviesViewState> = _movies
 
-    fun getPopularMovies(page: Int = 0) {
+    fun getPopularMovies(page: Int = 1) {
         getMoviesListUseCase(page).onEach { viewState ->
             when (viewState) {
                 is ViewState.Loading -> _movies.value = MoviesViewState(isLoading = true)

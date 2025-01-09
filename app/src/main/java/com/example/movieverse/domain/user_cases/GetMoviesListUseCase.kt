@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class GetMoviesListUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
 
-    operator fun invoke(page: Int = 0): Flow<ViewState<MoviesModel>> = flow {
+    operator fun invoke(page: Int = 1): Flow<ViewState<MoviesModel>> = flow {
 
         try {
             emit(ViewState.Loading())

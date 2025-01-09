@@ -1,14 +1,17 @@
 package com.example.movieverse.presentation.main_screen
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.movieverse.R
 import com.example.movieverse.databinding.FragmentMainScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class MainScreenFragment : Fragment() {
@@ -24,6 +27,13 @@ class MainScreenFragment : Fragment() {
         binding.tempButton.setOnClickListener {
             viewModel.getPopularMovies()
         }
+
+        lifecycleScope.launchWhenCreated {
+            viewModel.movies.collect{
+                Log.d("MoviesSceneLogs", "onViewCreated: ${it}")
+            }
+        }
+
 
     }
 
