@@ -16,6 +16,8 @@ navigationFragmentKtx = "2.8.3"
 retrofit = "2.9.0"
 sdpAndroid = "1.1.1"
 ksp = "1.9.21-1.0.15"
+coil = "2.4.0"
+shimmer = "0.5.0"
 
 
 [libraries]
@@ -37,7 +39,8 @@ androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx",
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
-
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

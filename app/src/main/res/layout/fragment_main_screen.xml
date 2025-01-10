@@ -8,29 +8,26 @@
     tools:context=".presentation.main_screen.MainScreenFragment">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textStyle="bold"
-        android:textSize="@dimen/_16sdp"
         android:textColor="@color/white"
-        android:layout_margin="@dimen/_16sdp"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/tempButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:text="Get Movies"
-        android:textSize="@dimen/_13sdp"
-        android:paddingHorizontal="@dimen/_12sdp"
-        android:paddingVertical="@dimen/_6sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpTopMoviesViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

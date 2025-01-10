@@ -1,5 +1,6 @@
 package com.example.movieverse.domain.user_cases
 
+import android.util.Log
 import com.example.movieverse.common.ViewState
 import com.example.movieverse.data.model.toMoviesModel
 import com.example.movieverse.domain.model.MoviesModel
@@ -10,12 +11,11 @@ import javax.inject.Inject
 
 class GetMoviesListUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
 
-    operator fun invoke(page: Int = 1): Flow<ViewState<MoviesModel>> = flow {
+    operator fun invoke(): Flow<ViewState<MoviesModel>> = flow {
 
         try {
             emit(ViewState.Loading())
-
-            val response = moviesRepository.getPopularMovies(page)
+            val response = moviesRepository.getPopularMovies()
             val responseModel = if (response.results.isEmpty()) emptyList<MoviesModel.Result>() else response.results.map { it.toMoviesModel() }
             val finalResponseModel  = MoviesModel(page = response.page, results = responseModel)
 

@@ -13,7 +13,8 @@ interface TMDBApiInterface {
        @Query("include_adult") includeAdult: Boolean = false,
        @Query("include_video") includeVideo: Boolean = false,
        @Query("language") language: String = "en-US",
-       @Query("page") page: Int = 1
+       @Query("page") page: Int = 1,
+       @Query("sort_by") sort_by: String = "popularity.desc"
    ): MoviesResponse
 
 }
