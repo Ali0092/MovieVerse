@@ -1,6 +1,5 @@
 package com.example.movieverse.domain.user_cases
 
-import android.util.Log
 import com.example.movieverse.common.ViewState
 import com.example.movieverse.data.model.toMoviesModel
 import com.example.movieverse.domain.model.MoviesModel
@@ -9,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetMoviesListUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
+class GetPopularMoviesListUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
 
     operator fun invoke(): Flow<ViewState<MoviesModel>> = flow {
 
