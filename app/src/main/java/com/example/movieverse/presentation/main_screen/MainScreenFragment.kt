@@ -3,6 +3,8 @@ package com.example.movieverse.presentation.main_screen
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -53,6 +55,7 @@ class MainScreenFragment : Fragment() {
         binding.vpPopularMoviesViewPager.adapter = topMoviesViewPagerAdapter
         binding.vpPopularMoviesViewPager.setPageTransformer(ScalePageTransformer())
         binding.vpPopularMoviesViewPager.offscreenPageLimit = 3
+        binding.dotsIndicator.attachTo(binding.vpPopularMoviesViewPager)
 
         //Rvs...
         upcomingMoviesRVAdapter = MoviesRecyclerViewAdapter()
@@ -73,17 +76,30 @@ class MainScreenFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
-            viewModel.upcomingMovies.collect {
-                if (it.movies.results.isNotEmpty()) {
-                    upcomingMoviesRVAdapter.submitList(it.movies.results.reversed())
+            viewModel.upcomingMovies.collect { response->
+                if (response.isLoading){
+                    binding.shimmerUpcomingMovies.visibility = VISIBLE
+                    binding.rvUpcomingMovies.visibility = GONE
                 }
+                if (response.movies.results.isNotEmpty()) {
+                    binding.shimmerUpcomingMovies.visibility = GONE
+                    binding.rvUpcomingMovies.visibility = VISIBLE
+                    upcomingMoviesRVAdapter.submitList(response.movies.results.reversed())
+                }
+
             }
         }
 
         lifecycleScope.launch {
-            viewModel.tvShows.collect {
-                if (it.movies.results.isNotEmpty()) {
-                    tvShowsRVAdapter.submitList(it.movies.results)
+            viewModel.tvShows.collect { response->
+                if (response.isLoading){
+                    binding.shimmerTVShows.visibility = VISIBLE
+                    binding.rvTVShows.visibility = GONE
+                }
+                if (response.movies.results.isNotEmpty()) {
+                    binding.shimmerTVShows.visibility = GONE
+                    binding.rvTVShows.visibility = VISIBLE
+                    tvShowsRVAdapter.submitList(response.movies.results.reversed())
                 }
             }
         }

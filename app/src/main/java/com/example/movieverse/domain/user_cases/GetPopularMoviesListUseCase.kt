@@ -25,5 +25,4 @@ class GetPopularMoviesListUseCase @Inject constructor(private val moviesReposito
 
     }
 
-
 }

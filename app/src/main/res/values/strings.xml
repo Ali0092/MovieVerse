@@ -4,4 +4,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="featured_movies">Featured Movies</string>
     <string name="upcomings">Upcomings</string>
+    <string name="tv_shows">TV Shows</string>
 </resources>

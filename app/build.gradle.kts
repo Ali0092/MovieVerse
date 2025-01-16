@@ -87,4 +87,7 @@ dependencies {
     //shimmer
     implementation(libs.shimmer)
 
+    implementation(libs.dotsindicator)
+
+
 }
