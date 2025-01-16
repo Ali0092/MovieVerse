@@ -8,22 +8,22 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class GetUpcomingMoviesListUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
+class GetTVShowsListUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
 
     operator fun invoke(): Flow<ViewState<MoviesModel>> = flow {
 
         try {
             emit(ViewState.Loading())
-            val response = moviesRepository.getUpcomingMovies()
-            val responseModel =
-                if (response.results.isEmpty()) emptyList<MoviesModel.Result>() else response.results.map { it.toMoviesModel() }
-            val finalResponseModel = MoviesModel(page = response.page, results = responseModel)
+            val response = moviesRepository.getTVShows()
+            val responseModel = if (response.results.isEmpty()) emptyList<MoviesModel.Result>() else response.results.map { it.toMoviesModel() }
+            val finalResponseModel  = MoviesModel(page = response.page, results = responseModel)
 
             emit(ViewState.Success(finalResponseModel))
-        } catch (e: Exception) {
+        }catch (e: Exception){
             emit(ViewState.Error(message = e.message))
         }
 
     }
+
 
 }

@@ -1,7 +1,7 @@
 package com.example.movieverse.hilt
 
 import com.example.movieverse.data.api.TMDBApiInterface
-import com.example.movieverse.data.repository.GetMoviesRepository
+import com.example.movieverse.data.repository.MoviesRepositoryImpl
 import com.example.movieverse.domain.repository.MoviesRepository
 import dagger.Module
 import dagger.Provides
@@ -27,7 +27,7 @@ object AppModule {
     @Provides
     @Singleton
     fun getMainRepository(tmdbApiInterface: TMDBApiInterface): MoviesRepository {
-        return GetMoviesRepository(tmdbApiInterface)
+        return MoviesRepositoryImpl(tmdbApiInterface)
     }
 
 }

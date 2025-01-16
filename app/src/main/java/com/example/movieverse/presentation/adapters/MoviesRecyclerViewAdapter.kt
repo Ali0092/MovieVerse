@@ -9,8 +9,8 @@ import com.example.movieverse.domain.model.MoviesModel
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 
-class FeaturedMoviesRecyclerViewAdapter :
-    RecyclerView.Adapter<FeaturedMoviesRecyclerViewAdapter.TopMoviesViewHolder>() {
+class MoviesRecyclerViewAdapter :
+    RecyclerView.Adapter<MoviesRecyclerViewAdapter.TopMoviesViewHolder>() {
 
     private var moviesList = emptyList<MoviesModel.Result>()
 

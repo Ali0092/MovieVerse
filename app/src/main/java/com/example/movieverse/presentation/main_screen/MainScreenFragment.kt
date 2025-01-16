@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.movieverse.common.ScalePageTransformer
 import com.example.movieverse.databinding.FragmentMainScreenBinding
-import com.example.movieverse.presentation.adapters.FeaturedMoviesRecyclerViewAdapter
+import com.example.movieverse.presentation.adapters.MoviesRecyclerViewAdapter
 import com.example.movieverse.presentation.adapters.TopMoviesViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -24,8 +24,16 @@ class MainScreenFragment : Fragment() {
     }
     private val viewModel by activityViewModels<MainScreenViewModel>()
     private lateinit var topMoviesViewPagerAdapter: TopMoviesViewPagerAdapter
-    private lateinit var upcomingMoviesRVAdapter: FeaturedMoviesRecyclerViewAdapter
-    private lateinit var upcomingMoviesViewPagerAdapter: FeaturedMoviesRecyclerViewAdapter
+    private lateinit var upcomingMoviesRVAdapter: MoviesRecyclerViewAdapter
+    private lateinit var tvShowsRVAdapter: MoviesRecyclerViewAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //calling
+        viewModel.getPopularMovies()
+        viewModel.getUpcomingMovies()
+        viewModel.getTVShows()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,10 +48,6 @@ class MainScreenFragment : Fragment() {
 
     private fun setupViews() {
 
-        //calling
-        viewModel.getPopularMovies()
-        viewModel.getUpcomingMovies()
-
         topMoviesViewPagerAdapter = TopMoviesViewPagerAdapter()
         topMoviesViewPagerAdapter.submitList(mutableListOf())
         binding.vpPopularMoviesViewPager.adapter = topMoviesViewPagerAdapter
@@ -51,16 +55,16 @@ class MainScreenFragment : Fragment() {
         binding.vpPopularMoviesViewPager.offscreenPageLimit = 3
 
         //Rvs...
-        upcomingMoviesRVAdapter = FeaturedMoviesRecyclerViewAdapter()
+        upcomingMoviesRVAdapter = MoviesRecyclerViewAdapter()
         upcomingMoviesRVAdapter.submitList(mutableListOf())
         binding.rvUpcomingMovies.adapter = upcomingMoviesRVAdapter
 
-        upcomingMoviesViewPagerAdapter = FeaturedMoviesRecyclerViewAdapter()
-        upcomingMoviesViewPagerAdapter.submitList(mutableListOf())
-        binding.rvTVShows.adapter = upcomingMoviesViewPagerAdapter
+        tvShowsRVAdapter = MoviesRecyclerViewAdapter()
+        tvShowsRVAdapter.submitList(mutableListOf())
+        binding.rvTVShows.adapter = tvShowsRVAdapter
 
 
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             viewModel.popularMovies.collect {
                 if (it.movies.results.isNotEmpty()) {
                     topMoviesViewPagerAdapter.submitList(it.movies.results.subList(0,7))
@@ -72,6 +76,14 @@ class MainScreenFragment : Fragment() {
             viewModel.upcomingMovies.collect {
                 if (it.movies.results.isNotEmpty()) {
                     upcomingMoviesRVAdapter.submitList(it.movies.results.reversed())
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.tvShows.collect {
+                if (it.movies.results.isNotEmpty()) {
+                    tvShowsRVAdapter.submitList(it.movies.results)
                 }
             }
         }
