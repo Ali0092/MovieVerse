@@ -18,6 +18,4 @@ class MoviesRepositoryImpl(private val tmdbApiInterface: TMDBApiInterface): Movi
         return tmdbApiInterface.getTVShows()
     }
 
-    //https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc/cjEcqdRdPQJhYre3HUAc5538Gk8.jpg
-
 }

@@ -7,16 +7,6 @@ import kotlin.math.abs
 class ScalePageTransformer : ViewPager2.PageTransformer {
     override fun transformPage(page: View, position: Float) {
 
-//        val scaleFactor = 0.85f + (1 - abs(position)) * 0.15f
-//        page.scaleX = scaleFactor
-//        page.scaleY = scaleFactor
-//
-//        val alphaFactor = 0.5f + (1 - abs(position)) * 0.5f
-//        page.alpha = alphaFactor
-//
-//        page.translationZ = -abs(position)
-
-
         val scaleFactor = 0.85f + (1 - abs(position)) * 0.20f
         page.scaleX = scaleFactor
         page.scaleY = scaleFactor
