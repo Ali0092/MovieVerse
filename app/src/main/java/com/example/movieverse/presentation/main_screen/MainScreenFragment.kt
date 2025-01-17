@@ -9,7 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.movieverse.R
 import com.example.movieverse.common.ScalePageTransformer
+import com.example.movieverse.common.Utils
 import com.example.movieverse.databinding.FragmentMainScreenBinding
 import com.example.movieverse.presentation.adapters.MoviesRecyclerViewAdapter
 import com.example.movieverse.presentation.adapters.TopMoviesViewPagerAdapter
@@ -50,7 +53,10 @@ class MainScreenFragment : Fragment() {
 
     private fun setupViews() {
 
-        topMoviesViewPagerAdapter = TopMoviesViewPagerAdapter()
+        topMoviesViewPagerAdapter = TopMoviesViewPagerAdapter {
+            Utils.selectedMovie = it
+            findNavController().navigate(R.id.action_mainScreenFragment_to_movieDetailFragment)
+        }
         topMoviesViewPagerAdapter.submitList(mutableListOf())
         binding.vpPopularMoviesViewPager.adapter = topMoviesViewPagerAdapter
         binding.vpPopularMoviesViewPager.setPageTransformer(ScalePageTransformer())
@@ -58,11 +64,17 @@ class MainScreenFragment : Fragment() {
         binding.dotsIndicator.attachTo(binding.vpPopularMoviesViewPager)
 
         //Rvs...
-        upcomingMoviesRVAdapter = MoviesRecyclerViewAdapter()
+        upcomingMoviesRVAdapter = MoviesRecyclerViewAdapter {
+            Utils.selectedMovie = it
+            findNavController().navigate(R.id.action_mainScreenFragment_to_movieDetailFragment)
+        }
         upcomingMoviesRVAdapter.submitList(mutableListOf())
         binding.rvUpcomingMovies.adapter = upcomingMoviesRVAdapter
 
-        tvShowsRVAdapter = MoviesRecyclerViewAdapter()
+        tvShowsRVAdapter = MoviesRecyclerViewAdapter {
+            Utils.selectedMovie = it
+            findNavController().navigate(R.id.action_mainScreenFragment_to_movieDetailFragment)
+        }
         tvShowsRVAdapter.submitList(mutableListOf())
         binding.rvTVShows.adapter = tvShowsRVAdapter
 

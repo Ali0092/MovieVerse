@@ -9,7 +9,7 @@ import com.example.movieverse.domain.model.MoviesModel
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 
-class MoviesRecyclerViewAdapter :
+class MoviesRecyclerViewAdapter(private val getClickedMovie: (MoviesModel.Result) -> Unit) :
     RecyclerView.Adapter<MoviesRecyclerViewAdapter.TopMoviesViewHolder>() {
 
     private var moviesList = emptyList<MoviesModel.Result>()
@@ -26,6 +26,9 @@ class MoviesRecyclerViewAdapter :
                             .setAutoStart(true).build()
                     )
                 })
+            }
+            binding.root.setOnClickListener {
+                getClickedMovie(movieItem)
             }
         }
 

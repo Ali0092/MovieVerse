@@ -1,6 +1,5 @@
 package com.example.movieverse.presentation.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +9,7 @@ import com.example.movieverse.domain.model.MoviesModel
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 
-class TopMoviesViewPagerAdapter: RecyclerView.Adapter<TopMoviesViewPagerAdapter.TopMoviesViewHolder>() {
+class TopMoviesViewPagerAdapter(private val getClickedMovie: (MoviesModel.Result) -> Unit): RecyclerView.Adapter<TopMoviesViewPagerAdapter.TopMoviesViewHolder>() {
 
     private var moviesList = emptyList<MoviesModel.Result>()
 
@@ -29,6 +28,10 @@ class TopMoviesViewPagerAdapter: RecyclerView.Adapter<TopMoviesViewPagerAdapter.
                             .build()
                     )
                 })
+            }
+
+            binding.root.setOnClickListener {
+                getClickedMovie(movieItem)
             }
         }
 
