@@ -7,17 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.example.movieverse.R
-import com.example.movieverse.common.Utils.selectedMovie
 import com.example.movieverse.databinding.FragmentMovieDetailBinding
+import com.example.movieverse.presentation.main_screen.MainScreenViewModel
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
 
     private val binding: FragmentMovieDetailBinding by lazy { FragmentMovieDetailBinding.inflate(layoutInflater) }
+    private val viewModel by activityViewModels<MainScreenViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,19 +34,22 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setUpViews() {
-        Log.d("MovieDetailsScreenLogs", "setUpViews: ${selectedMovie}")
-        binding.ivMoviePoster.load("https://image.tmdb.org/t/p/w500/${selectedMovie.posterPath}") {
-            placeholder(ShimmerDrawable().apply {
-                setShimmer(
-                    Shimmer.AlphaHighlightBuilder().setDuration(500).setBaseAlpha(0.97f)
-                        .setHighlightAlpha(0.9f).setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-                        .setAutoStart(true).build()
-                )
-            })
+        viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie->
+            Log.d("MovieDetailsScreenLogs", "setUpViews: ${selectedMovie}")
+            binding.ivMoviePoster.load("https://image.tmdb.org/t/p/w500/${selectedMovie.posterPath}") {
+                placeholder(ShimmerDrawable().apply {
+                    setShimmer(
+                        Shimmer.AlphaHighlightBuilder().setDuration(500).setBaseAlpha(0.97f)
+                            .setHighlightAlpha(0.9f).setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                            .setAutoStart(true).build()
+                    )
+                })
+            }
+            binding.tvMovieName.text = selectedMovie.title
+            binding.tvMovieRating.text = selectedMovie.voteAverage.toString()
+            binding.tvMovieOverView.text = selectedMovie.overview
+
         }
-        binding.tvMovieName.text = selectedMovie.title
-        binding.tvMovieRating.text = selectedMovie.voteAverage.toString()
-        binding.tvMovieOverView.text = selectedMovie.overview
 
         binding.cBackBtn.setOnClickListener {
             findNavController().popBackStack()

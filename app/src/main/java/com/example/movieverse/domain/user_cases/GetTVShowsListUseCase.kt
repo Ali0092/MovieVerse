@@ -1,5 +1,6 @@
 package com.example.movieverse.domain.user_cases
 
+import android.util.Log
 import com.example.movieverse.common.ViewState
 import com.example.movieverse.data.model.toMoviesModel
 import com.example.movieverse.domain.model.MoviesModel
@@ -15,6 +16,9 @@ class GetTVShowsListUseCase @Inject constructor(private val moviesRepository: Mo
         try {
             emit(ViewState.Loading())
             val response = moviesRepository.getTVShows()
+            Log.d("checkingMoviesPosterLogs", "toMoviesModel: ${response}")
+
+
             val responseModel = if (response.results.isEmpty()) emptyList<MoviesModel.Result>() else response.results.map { it.toMoviesModel() }
             val finalResponseModel  = MoviesModel(page = response.page, results = responseModel)
 

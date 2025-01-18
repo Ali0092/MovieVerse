@@ -1,6 +1,7 @@
 package com.example.movieverse.domain.repository
 
 import com.example.movieverse.data.model.MoviesResponse
+import com.example.movieverse.data.model.TVShowResponse
 
 interface MoviesRepository {
 
@@ -8,6 +9,6 @@ interface MoviesRepository {
 
     suspend fun getUpcomingMovies(): MoviesResponse
 
-    suspend fun getTVShows(): MoviesResponse
+    suspend fun getTVShows(): TVShowResponse
 
 }

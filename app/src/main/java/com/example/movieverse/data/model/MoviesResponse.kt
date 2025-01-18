@@ -47,7 +47,6 @@ data class MoviesResponse(
 }
 
 fun MoviesResponse.Result.toMoviesModel(): MoviesModel.Result {
-    Log.d("checkingMoviesPoster", "toMoviesModel: ${this}")
     return MoviesModel.Result(
         id = this.id,
         adult = this.adult,

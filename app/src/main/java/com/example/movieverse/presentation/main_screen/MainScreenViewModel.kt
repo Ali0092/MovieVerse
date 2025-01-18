@@ -1,8 +1,11 @@
 package com.example.movieverse.presentation.main_screen
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieverse.common.ViewState
+import com.example.movieverse.domain.model.MoviesModel
 import com.example.movieverse.domain.user_cases.GetPopularMoviesListUseCase
 import com.example.movieverse.domain.user_cases.GetTVShowsListUseCase
 import com.example.movieverse.domain.user_cases.GetUpcomingMoviesListUseCase
@@ -27,6 +30,15 @@ class MainScreenViewModel @Inject constructor(
 
     private val _tvShows = MutableStateFlow(MoviesViewState())
     val tvShows: MutableStateFlow<MoviesViewState> = _tvShows
+
+    private var _selectedMovie: MutableLiveData<MoviesModel.Result> = MutableLiveData()
+    val selectedMovie: LiveData<MoviesModel.Result> = _selectedMovie
+
+
+    fun setSelectedMovie(movie: MoviesModel.Result) {
+        _selectedMovie.value = movie
+    }
+
 
     fun getPopularMovies() {
         getPopularMoviesListUseCase().onEach { viewState ->

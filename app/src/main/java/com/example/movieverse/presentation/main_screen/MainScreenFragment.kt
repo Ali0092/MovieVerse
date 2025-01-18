@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.movieverse.R
 import com.example.movieverse.common.ScalePageTransformer
-import com.example.movieverse.common.Utils
 import com.example.movieverse.databinding.FragmentMainScreenBinding
 import com.example.movieverse.presentation.adapters.MoviesRecyclerViewAdapter
 import com.example.movieverse.presentation.adapters.TopMoviesViewPagerAdapter
@@ -53,8 +52,8 @@ class MainScreenFragment : Fragment() {
 
     private fun setupViews() {
 
-        topMoviesViewPagerAdapter = TopMoviesViewPagerAdapter {
-            Utils.selectedMovie = it
+        topMoviesViewPagerAdapter = TopMoviesViewPagerAdapter { selectedMovie->
+            viewModel.setSelectedMovie(selectedMovie)
             findNavController().navigate(R.id.action_mainScreenFragment_to_movieDetailFragment)
         }
         topMoviesViewPagerAdapter.submitList(mutableListOf())
@@ -64,15 +63,15 @@ class MainScreenFragment : Fragment() {
         binding.dotsIndicator.attachTo(binding.vpPopularMoviesViewPager)
 
         //Rvs...
-        upcomingMoviesRVAdapter = MoviesRecyclerViewAdapter {
-            Utils.selectedMovie = it
+        upcomingMoviesRVAdapter = MoviesRecyclerViewAdapter { selectedMovie->
+            viewModel.setSelectedMovie(selectedMovie)
             findNavController().navigate(R.id.action_mainScreenFragment_to_movieDetailFragment)
         }
         upcomingMoviesRVAdapter.submitList(mutableListOf())
         binding.rvUpcomingMovies.adapter = upcomingMoviesRVAdapter
 
-        tvShowsRVAdapter = MoviesRecyclerViewAdapter {
-            Utils.selectedMovie = it
+        tvShowsRVAdapter = MoviesRecyclerViewAdapter { selectedMovie->
+            viewModel.setSelectedMovie(selectedMovie)
             findNavController().navigate(R.id.action_mainScreenFragment_to_movieDetailFragment)
         }
         tvShowsRVAdapter.submitList(mutableListOf())
