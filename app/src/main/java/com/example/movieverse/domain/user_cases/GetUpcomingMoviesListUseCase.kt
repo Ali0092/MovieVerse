@@ -11,7 +11,6 @@ import javax.inject.Inject
 class GetUpcomingMoviesListUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
 
     operator fun invoke(): Flow<ViewState<MoviesModel>> = flow {
-
         try {
             emit(ViewState.Loading())
             val response = moviesRepository.getUpcomingMovies()
@@ -23,7 +22,6 @@ class GetUpcomingMoviesListUseCase @Inject constructor(private val moviesReposit
         } catch (e: Exception) {
             emit(ViewState.Error(message = e.message))
         }
-
     }
 
 }

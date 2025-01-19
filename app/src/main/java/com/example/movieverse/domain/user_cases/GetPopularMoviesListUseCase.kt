@@ -11,7 +11,6 @@ import javax.inject.Inject
 class GetPopularMoviesListUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
 
     operator fun invoke(): Flow<ViewState<MoviesModel>> = flow {
-
         try {
             emit(ViewState.Loading())
             val response = moviesRepository.getPopularMovies()

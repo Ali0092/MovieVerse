@@ -1,13 +1,12 @@
 package com.example.movieverse.data.model
 
 
-import android.util.Log
 import androidx.annotation.Keep
 import com.example.movieverse.domain.model.MoviesModel
 import com.google.gson.annotations.SerializedName
 
 @Keep
-data class MoviesResponse(
+data class MoviesDTO(
     val page: Int = 0,
     val results: List<Result> = emptyList(),
     val totalPages: Int = 0,
@@ -46,7 +45,7 @@ data class MoviesResponse(
     )
 }
 
-fun MoviesResponse.Result.toMoviesModel(): MoviesModel.Result {
+fun MoviesDTO.Result.toMoviesModel(): MoviesModel.Result {
     return MoviesModel.Result(
         id = this.id,
         adult = this.adult,

@@ -1,14 +1,14 @@
 package com.example.movieverse.domain.repository
 
-import com.example.movieverse.data.model.MoviesResponse
-import com.example.movieverse.data.model.TVShowResponse
+import com.example.movieverse.data.model.MoviesDTO
+import com.example.movieverse.data.model.TVShowDTO
 
 interface MoviesRepository {
 
-    suspend fun getPopularMovies(): MoviesResponse
+    suspend fun getPopularMovies(): MoviesDTO
 
-    suspend fun getUpcomingMovies(): MoviesResponse
+    suspend fun getUpcomingMovies(): MoviesDTO
 
-    suspend fun getTVShows(): TVShowResponse
+    suspend fun getTVShows(): TVShowDTO
 
 }

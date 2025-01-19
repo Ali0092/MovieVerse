@@ -6,7 +6,7 @@ import com.example.movieverse.domain.model.MoviesModel
 import com.google.gson.annotations.SerializedName
 
 @Keep
-data class TVShowResponse(
+data class TVShowDTO(
     @SerializedName("page")
     val page: Int,
     @SerializedName("results")
@@ -49,7 +49,7 @@ data class TVShowResponse(
     )
 }
 
-fun TVShowResponse.Result.toMoviesModel(): MoviesModel.Result {
+fun TVShowDTO.Result.toMoviesModel(): MoviesModel.Result {
     return MoviesModel.Result(
         id = this.id,
         adult = this.adult,

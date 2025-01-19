@@ -16,8 +16,6 @@ class GetTVShowsListUseCase @Inject constructor(private val moviesRepository: Mo
         try {
             emit(ViewState.Loading())
             val response = moviesRepository.getTVShows()
-            Log.d("checkingMoviesPosterLogs", "toMoviesModel: ${response}")
-
 
             val responseModel = if (response.results.isEmpty()) emptyList<MoviesModel.Result>() else response.results.map { it.toMoviesModel() }
             val finalResponseModel  = MoviesModel(page = response.page, results = responseModel)
